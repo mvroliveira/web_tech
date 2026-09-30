@@ -1,0 +1,50 @@
+<a
+  class="card group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-surface outline-none transition-colors hover:border-(--accent) focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+  [href]="article().url"
+  target="_blank"
+  rel="noopener noreferrer"
+  [style.--accent]="article().accent"
+>
+  <!-- A faixa colorida identifica a fonte de relance -->
+  <div class="media relative aspect-video shrink-0 overflow-hidden border-b-4" [style.border-color]="article().accent">
+    @if (showImage()) {
+      <img
+        class="h-full w-full object-cover"
+        [src]="article().imageUrl"
+        alt=""
+        loading="lazy"
+        decoding="async"
+        referrerpolicy="no-referrer"
+        (error)="imageFailed.set(true)"
+      />
+    } @else {
+      <div class="flex h-full w-full items-end p-5" [style.background-color]="article().accent">
+        <span class="font-display text-3xl font-extrabold leading-none text-white/90">{{ article().source }}</span>
+      </div>
+    }
+  </div>
+
+  <div class="flex flex-1 flex-col gap-3 p-5">
+    <p class="flex items-center gap-2 text-sm font-semibold text-ink">
+      <span class="size-2.5 shrink-0 rounded-full" [style.background-color]="article().accent" aria-hidden="true"></span>
+      {{ article().source }}
+    </p>
+
+    <h2 class="title line-clamp-3 font-display text-xl font-bold leading-snug text-ink decoration-(--accent) decoration-2 underline-offset-4 group-hover:underline">
+      {{ article().title }}
+    </h2>
+
+    @if (article().summary) {
+      <p class="summary line-clamp-3 leading-relaxed text-muted">{{ article().summary }}</p>
+    }
+
+    <footer class="mt-auto flex items-center justify-between gap-3 pt-2 text-sm text-muted">
+      <span class="truncate">{{ article().author }}</span>
+      <time class="shrink-0" [attr.datetime]="isoDate()" [title]="fullDate()">
+        {{ article().publishedAt | relativeTime }}
+      </time>
+    </footer>
+  </div>
+
+  <span class="sr-only">(abre em nova aba)</span>
+</a>

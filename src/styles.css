@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+/* Tokens do design system: viram utilitários (bg-paper, text-ink, border-line...) */
+@theme {
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+
+  --color-paper: #f3f6fa;   /* fundo da página */
+  --color-surface: #ffffff; /* fundo dos cards */
+  --color-ink: #0e1726;     /* texto principal */
+  --color-muted: #52627a;   /* texto secundário */
+  --color-line: #d8e0eb;    /* bordas e skeletons */
+  --color-signal: #2f6bff;  /* foco e ações */
+  --color-amber: #f5a524;   /* aviso de novas notícias */
+}
+
+/* Tema escuro automático: só os tokens mudam, os componentes não precisam de "dark:" */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: #09101b;
+    --color-surface: #101a2a;
+    --color-ink: #e7edf6;
+    --color-muted: #94a3b8;
+    --color-line: #22324a;
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: light dark;
+  }
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+  }
+}
